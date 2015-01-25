@@ -34,10 +34,12 @@ function notify-success() {
 # Notify about the last command's success or failure.
 function notify-command-complete() {
   last_status=$?
-  if [[ $last_status -gt "0" ]]; then
-    notify-error <<< "$last_command @ $(pwd)"
-  elif [[ -n $start_time ]]; then
-    notify-success "$start_time" "$last_command"
+  if [[ $last_command != "" ]]; then
+    if [[ $last_status -gt "0" ]]; then
+      notify-error <<< "$last_command @ $(pwd)"
+    elif [[ -n $start_time ]]; then
+      notify-success "$start_time" "$last_command"
+    fi
   fi
   unset last_command start_time last_status
 }
