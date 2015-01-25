@@ -43,9 +43,6 @@ elif [[ "$TERM_PROGRAM" == 'Apple_Terminal' ]]; then
   term_id='com.apple.terminal'
 elif [[ -x $(which xdotool) ]]; then
   term_id='check_xdotool'
-else
-  # echo "Unsupported terminal: $TERM_PROGRAM" > /dev/stderr 
-  return 1;
 fi
 
 #cat /dev/stdin | growlnotify "$@"
