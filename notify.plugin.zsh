@@ -13,7 +13,7 @@ fpath=($fpath `dirname $0`)
 function notify-error {
   local icon
   icon="/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/AlertStopIcon.icns"
-  notify-if-background -t "#fail" --image "$icon" < /dev/stdin &!
+  notify-anyway -t "#fail" --image "$icon" < /dev/stdin &!
 }
 
 # Notify of successful command termination, but only if it took at least
@@ -27,7 +27,7 @@ function notify-success() {
 
   ((diff = $now - $start_time ))
   if (( $diff > $NOTIFY_COMMAND_COMPLETE_TIMEOUT )); then
-    notify-if-background -t "#win" <<< "$last_command" &!
+    notify-anyway -t "#win" <<< "$last_command" &!
   fi
 }
 
@@ -55,6 +55,6 @@ fi
 autoload add-zsh-hook
 autoload -U tell-terminal
 autoload -U tell-iterm2
-autoload -U notify-if-background
+autoload -U notify-anyway
 add-zsh-hook preexec store-command-stats
 add-zsh-hook precmd notify-command-complete
