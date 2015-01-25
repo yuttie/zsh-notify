@@ -27,7 +27,7 @@ function notify-success() {
 
   ((diff = $now - $start_time ))
   if (( $diff > $NOTIFY_COMMAND_COMPLETE_TIMEOUT )); then
-    notify-anyway -t "zsh: Success" <<< "$last_command" &!
+    notify-anyway -t "zsh: Success" <<< "$last_command @ $(pwd)" &!
   fi
 }
 
@@ -35,7 +35,7 @@ function notify-success() {
 function notify-command-complete() {
   last_status=$?
   if [[ $last_status -gt "0" ]]; then
-    notify-error <<< $last_command
+    notify-error <<< "$last_command @ $(pwd)"
   elif [[ -n $start_time ]]; then
     notify-success "$start_time" "$last_command"
   fi
