@@ -55,7 +55,7 @@ elif [[ -x "$GROWL_NOTIFIER" ]]; then
   [[ ! -z "$icon" ]] && icon_switch="--iconpath $icon"
   echo "$message" | "$GROWL_NOTIFIER" "$title" 
 elif [[ -x "$NOTIFY_NOTIFIER" ]]; then
-  "$NOTIFY_NOTIFIER" "$title" "$message"
+  "$NOTIFY_NOTIFIER" --icon="$icon" "$title" "$message"
 else
   echo "No notifier program found." > /dev/stderr
   return 1

@@ -12,22 +12,23 @@ fpath=($fpath `dirname $0`)
 # when the terminal is in background).
 function notify-error {
   local icon
-  icon="/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/AlertStopIcon.icns"
-  notify-anyway -t "zsh: Failure" --image "$icon" < /dev/stdin &!
+  icon="error"
+  notify-anyway -t "zsh: Failure" --icon "$icon" < /dev/stdin &!
 }
 
 # Notify of successful command termination, but only if it took at least
 # 30 seconds (and if the terminal is in background).
 function notify-success() {
-  local now diff start_time last_command
+  local now diff start_time last_command icon
 
   start_time=$1
   last_command="$2"
   now=`date "+%s"`
+  icon="info"
 
   ((diff = $now - $start_time ))
   if (( $diff > $NOTIFY_COMMAND_COMPLETE_TIMEOUT )); then
-    notify-anyway -t "zsh: Success" <<< "$last_command @ $(pwd)" &!
+    notify-anyway -t "zsh: Success" --icon "$icon" <<< "$last_command @ $(pwd)" &!
   fi
 }
 
